@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% for movie in movie_list %}
+        {% if forloop.counter <= 3 %}
+            {{ forloop.counter }}위 : <a href="/movie/{{ forloop.counter0 }}">{{ movie.title }}</a><br>
+            {# forloop.counter : template 문법 for문 안에서 쓸 수 있는 변수 (enumerate는 사용 불가) -> 1부터 시작됨#}
+            {# forloop.counter0 하면 0부터 시작#}
+        {% endif %}
+    {% endfor %}
+
+</body>
+</html>
