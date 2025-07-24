@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {# {% for index in '0123456789'|make_list %}#}
+    {% for index in range %}
+        <h1><a href="/book_list/{{ forloop.count0 }}/">book {{ index }}</a></h1>
+    {% endfor %}
+</body>
+</html>
