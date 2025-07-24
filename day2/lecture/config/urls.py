@@ -21,24 +21,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from bookmark import views
 
-
-def book_list(request) :
-    # book_text = ''
-    #
-    # for i in range(0, 10) :
-    #     book_text += f'book {i}<br>'
-    #
-    # return HttpResponse(book_text)
-
-    return render(request, template_name='book_list.html', context={'range': range(0, 10)})
-
-def book(request, num) :
-    # book_text = f'book {num}번 페이지입니다.'
-    # return HttpResponse(book_text)
-
-    return render(request, template_name='book_detail.html', context={'num': num})
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('bookmark/', views.bookmark_list),
