@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{{ todo.title }}</h1>
+<hr>
+<h3>
+  {% if todo.is_completed %}
+      완료 여부 : ✅️
+  {% else %}
+      완료 여부 : ☐
+  {% endif %}
+</h3>
+<h3>{{ todo.description }}</h3>
+<h3>시작일 : {{ todo.start_date }}</h3>
+<h3>마감일 : {{ todo.end_date }}</h3>
+<hr>
+생성 : {{ todo.created_at }}
+<br>
+수정 : {{ todo.updated_at }}
+</body>
+</html>
