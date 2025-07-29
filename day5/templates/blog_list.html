@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>블로그 목록</h1>
+
+    <p style="text-align: right">
+        <a href="{% url 'blog:create' %}">생성</a>
+    </p>
+
+    {% for blog in object_list %}
+        <p>
+            <a href="{% url 'blog:detail' blog.pk %}">
+                [{{ blog.get_category_display }}] {{ blog.title }} <span>({{ blog.author.username }})</span>- <small>{{ blog.created_at | date:"Y-m-d"}}</small>
+            </a>
+        </p>
+    {% endfor %}
+
+    <form method="GET" style="margin-bottom: 10px">
+        <input name="q" type="text" placeholder="검색어를 입력하세요." value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}">
+        <button>검색</button>
+    </form>
+
+    <div>
+    {% if page_obj.has_previous %}
+        <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&laquo; 첫번째</a>
+        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">이전</a>
+    {% endif %}
+
+    {% if page_obj.number|add:-2 > 1 %}
+        <a href="?page={{ page_obj.number|add:-3 }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&hellip;</a>
+    {% endif %}
+    
+    {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+            <span>(현재페이지)</span>
+        {% elif i > page_obj.number|add:-3 and i < page_obj.number|add:3 %}
+            <a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.number|add:2 < page_obj.paginator.num_pages %}
+        <a href="?page={{ page_obj.number|add:+3 }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&hellip;</a>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">다음</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">마지막 &raquo;</a>
+    {% endif %}
+    </div>
+{% endblock %}
