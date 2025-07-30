@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+</head>
+<body>
+<nav class="d-flex justify-content-between py-2 px-4 bg-black text-white">
+<div>
+    <a class="text-decoration-none text-white" href="{%  url "blog:list" %}">홈</a>
+</div>
+    <div style="text-align : right">
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            <button class="btn btn-danger btn-md">로그아웃</button>
+        </form>
+        {{ request.user.username }}
+        {% else %}
+            <a href="{% url 'login' %}">로그인</a>
+            <a href="{% url 'signup' %}">회원가입</a>
+        {% endif %}
+    </div>
+</nav>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+
+<footer></footer>
+
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+{% block js %}{% endblock %}
+</body>
+</html>

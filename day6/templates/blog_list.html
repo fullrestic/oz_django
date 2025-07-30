@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="mt-2">
+        <h1 class="d-inline">블로그 목록</h1>
+        <a href="{% url 'blog:create' %}" class="float-end btn btn-sm btn-primary">생성</a>
+    </div>
+
+    <hr>
+
+    {% for blog in object_list %}
+        <div class="my-1">
+            <a href="{% url 'blog:detail' blog.pk %}" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                [{{ blog.get_category_display }}] {{ blog.title }} <span>({{ blog.author.username }})</span>- <small>{{ blog.created_at | date:"Y-m-d"}}</small>
+            </a>
+        </div>
+    {% endfor %}
+
+    <form method="GET" class="my-3 d-flex">
+        <input class="form-control-sm" name="q" type="text" placeholder="검색어를 입력하세요." value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}">
+        <button class="btn btn-sm btn-info ms-2">검색</button>
+    </form>
+
+    {% include 'pagination.html' %}
+{% endblock %}
